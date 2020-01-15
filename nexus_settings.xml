@@ -2,18 +2,17 @@
 <settings>
   <mirrors>
     <mirror>
-      <id>nexus</id>
+      <id>Nexus</id>
       <name>Nexus Public Mirror</name>
-      <url>http://nexus-opentlc-shared.apps.na37.openshift.opentlc.com/repository/maven-all-public/</url>
+      <url>http://nexus-ca4f-nexus.apps.shared-dev.dev.openshift.opentlc.com/repository/maven-all-public/</url>
       <mirrorOf>*</mirrorOf>
     </mirror>
   </mirrors>
   <servers>
-    <server>
-      <id>nexus</id>
-      <username>admin</username>
-      <password>admin123</password>
-    </server>
-  </servers>
+  <server>
+    <id>nexus</id>
+    <username>admin</username>
+    <password>app_deploy</password>
+  </server>
+</servers>
 </settings>
-
