@@ -69,7 +69,6 @@ pipeline {
       steps {
         echo "Running Code Analysis"
 
-        // TBD
 		//sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-${prefix}-sonarqube.apps.cluster-b0ef.b0ef.example.opentlc.com/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag}"
 
       }
@@ -80,7 +79,7 @@ pipeline {
       steps {
         echo "Publish to Nexus"
 
-        // TBD
+        sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus.${prefix}-nexus.svc.cluster.local:8001/repository/releases"
 
       }
     }
