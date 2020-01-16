@@ -60,7 +60,7 @@ pipeline {
 		sh "ls /tmp/workspace/Tasks/target/surefire-reports"
 		
 		// Display the results of the unit test in Jenkins Task Overview
-		step([$class: 'JUnitResultArchiver', testResults: '../target/surfire-reports/TEST-*.xml'])
+		step([$class: 'JUnitResultArchiver', testResults: './target/surfire-reports/TEST-*.xml'])
       }
     }
 
