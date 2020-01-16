@@ -94,14 +94,16 @@ pipeline {
         // workspace (filename to pass into the binary build
         // is openshift-tasks.war in the 'target' directory of
         // your current Jenkins workspace).
-    script {
-      openshift.withCluster() {
-        openshift.withProject("${devProject}") {
-          openshift.selector("bc", "tasks").startBuild("--from-file=./target/openshift-tasks.war", "--wait=true")
+        script {
+          openshift.withCluster() {
+            openshift.withProject("${devProject}") {
+              openshift.selector("bc", "tasks").startBuild("--from-file=./target/openshift-tasks.war", "--wait=true")
 
         // Tag the image using the devTag.
-          openshift.tag("tasks:latest", "tasks:${devTag}")
-
+              openshift.tag("tasks:latest", "tasks:${devTag}")
+            }
+          }
+        }
       }
     }
 
