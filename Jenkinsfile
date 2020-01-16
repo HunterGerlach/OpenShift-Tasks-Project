@@ -57,8 +57,7 @@ pipeline {
 
 	    sh "${mvnCmd} test"
 
-    	// This next step is optional.
-	    // It displays the results of tests in the Jenkins Task Overview
+		// Display unit test results in the Jenkins Task Overview
 	    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])		
 
 	  }    
