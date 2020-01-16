@@ -101,10 +101,10 @@ pipeline {
 
         // OR use the file you just published into Nexus:
         // "--from-file=http://nexus.${prefix}-nexus.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war"
-              echo ${prefix}
-              echo ${devTag}
-              echo ${version}
-              echo "Success???"
+              sh "echo ${prefix}"
+              sh "echo ${devTag}"
+              sh "echo ${version}"
+              sh "echo 'Success???'"
               openshift.selector("bc", "tasks").startBuild("--from-file=http://nexus.${prefix}-nexus.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war", "--wait=true")
 
         // Tag the image using the devTag.
