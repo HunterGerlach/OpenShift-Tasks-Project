@@ -54,8 +54,6 @@ pipeline {
     stage('Unit Tests') {
       steps {
         echo "Running Unit Tests"
-
-        // Run unit tests via maven
 		sh "${mvnCmd} test"
 
 		// Display the results of the unit test in Jenkins Task Overview
