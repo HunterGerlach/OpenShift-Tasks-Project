@@ -61,7 +61,8 @@ pipeline {
 		
 		// Display the results of the unit test in Jenkins Task Overview
 		step([$class: 'JUnitResultArchiver', testResults: '**/target/surfire-reports/TEST-*.xml'])
-      }
+		input "Unit test complete?"      
+		}
     }
 
     //Using Maven call SonarQube for Code Analysis
