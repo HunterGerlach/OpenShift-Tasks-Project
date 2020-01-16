@@ -57,7 +57,7 @@ pipeline {
 		sh "${mvnCmd} test"
 
 		// Display the results of the unit test in Jenkins Task Overview
-		step([$class: 'JUnitResultArchiver', testResults: '**/target/surfire-reports/TEST-*.xml'])
+		step([$class: 'JUnitResultArchiver', testResults: './surfire-reports/TEST-*.xml'])
       }
     }
 
