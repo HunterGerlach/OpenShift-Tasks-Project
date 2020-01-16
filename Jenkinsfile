@@ -42,7 +42,7 @@ pipeline {
 
     // Using Maven build the war file
     // Do not run tests in this step
-    stage('Build War File') {
+    stage('Build Wart File') {
       steps {
         echo "Building version ${devTag}"
 
