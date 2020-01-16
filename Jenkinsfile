@@ -54,16 +54,16 @@ pipeline {
     stage('Unit Tests') {
       steps {
         echo "Running Unit Tests"
-		sh "${mvnCmd} test"
-		sh "pwd"
-		sh "ls"
-		sh "ls /tmp/workspace/Tasks/target/surefire-reports"
-		
-		// Display the results of the unit test in Jenkins Task Overview
-		step([$class: 'JUnitResultArchiver', testResults: '**/target/surfire-reports/TEST-*.xml'])
-		input "Unit test complete?"      
-		}
-    }
+
+	    sh "${mvnCmd} test"
+
+    	// This next step is optional.
+	    // It displays the results of tests in the Jenkins Task Overview
+	    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])		
+
+	  }    
+
+	}
 
     //Using Maven call SonarQube for Code Analysis
     stage('Code Analysis') {
