@@ -117,30 +117,46 @@ pipeline {
       steps {
         echo "Deploy container image to Development Project"
 
-        // TBD: Deploy the image
+        // Deploy the image
         // 1. Update the image on the dev deployment config
         // 2. Update the config maps with the potentially changed properties files
-       // 3. Reeploy the dev deployment
-       // 4. Wait until the deployment is running
-       //    The following code will accomplish that by
-       //    comparing the requested replicas
-       //    (rc.spec.replicas) with the running replicas
-       //    (rc.status.readyReplicas)
-       //
-
-      // def dc = openshift.selector("dc", "tasks").object()
-      // def dc_version = dc.status.latestVersion
-      // def rc = openshift.selector("rc", "tasks-${dc_version}").object()
-
-      // echo "Waiting for ReplicationController tasks-${dc_version} to be ready"
-      // while (rc.spec.replicas != rc.status.readyReplicas) {
-      //   sleep 5
-      //   rc = openshift.selector("rc", "tasks-${dc_version}").object()
-      // }
-
+        // 3. Reeploy the dev deployment
+        // 4. Wait until the deployment is running
+        //    The following code will accomplish that by
+        //    comparing the requested replicas
+        //    (rc.spec.replicas) with the running replicas
+        //    (rc.status.readyReplicas)
+        //
+        
+        script {
+          // Update the Image on the Development Deployment Config
+          openshift.withCluster() {
+            openshift.withProject("${devProject}") {
+          openshift.set("image", "dc/tasks", "tasks=image-registry.openshift-image-registry.svc:5000/${devProject}/tasks:${devTag}")
+    
+              // Update the Config Map which contains the users for the Tasks application
+              // (just in case the properties files changed in the latest commit)
+              openshift.selector('configmap', 'tasks-config').delete()
+              def configmap = openshift.create('configmap', 'tasks-config', '--from-file=./configuration/application-users.properties', '--from-file=./configuration/application-roles.properties' )
+    
+              // Deploy the development application.
+              openshift.selector("dc", "tasks").rollout().latest();
+    
+              // Wait for the application to be deployed
+              def dc = openshift.selector("dc", "tasks").object()
+              def dc_version = dc.status.latestVersion
+              def rc = openshift.selector("rc", "tasks-${dc_version}").object()
+    
+              echo "Waiting for ReplicationController tasks-${dc_version} to be ready"
+              while (rc.spec.replicas != rc.status.readyReplicas) {
+                sleep 5
+                rc = openshift.selector("rc", "tasks-${dc_version}").object()
+              }
+            }
+          }
+        }
       }
     }
-
     // Run Integration Tests in the Development Environment.
     stage('Integration Tests') {
       steps {
