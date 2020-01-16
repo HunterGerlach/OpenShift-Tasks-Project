@@ -31,10 +31,10 @@ pipeline {
           def version = pom.version
 
           // TBD: Set the tag for the development image: version + build number.
-          // Example: def devTag  = "0.0-0"
+          def devTag  = "0.0-0"
 
           // TBD: Set the tag for the production image: version
-          // Example: def prodTag = "0.0"
+          def prodTag = "0.0"
 
         }
       }
