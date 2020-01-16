@@ -30,11 +30,11 @@ pipeline {
           def pom = readMavenPom file: 'pom.xml'
           def version = pom.version
 
-          // TBD: Set the tag for the development image: version + build number.
-          def devTag  = "0.0-0"
-
-          // TBD: Set the tag for the production image: version
-          def prodTag = "0.0"
+		  // Set the tag for the development image: version + build number
+		  devTag  = "${version}-" + currentBuild.number
+		
+		  // Set the tag for the production image: version
+		  prodTag = "${version}"
 
         }
       }
@@ -46,8 +46,7 @@ pipeline {
       steps {
         echo "Building version ${devTag}"
 
-        // TBD
-
+		sh "${mvnCmd} clean package -DskipTests=true"
       }
     }
 
