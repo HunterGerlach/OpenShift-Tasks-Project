@@ -70,6 +70,7 @@ pipeline {
         echo "Running Code Analysis"
 
         // TBD
+		sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-${prefix}-sonarqube.apps.cluster-b0ef.b0ef.example.opentlc.com/ -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag}"
 
       }
     }
