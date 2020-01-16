@@ -13,6 +13,7 @@ def devTag      = "0.0-0"
 def prodTag     = "0.0"
 def destApp     = "tasks-green"
 def activeApp   = ""
+def version     = ""
 
 pipeline {
   agent {
