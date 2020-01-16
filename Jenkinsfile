@@ -55,7 +55,11 @@ pipeline {
       steps {
         echo "Running Unit Tests"
 
-        // TBD
+        // Run unit tests via maven
+		sh "${mvnCmd} test
+
+		// Display the results of the unit test in Jenkins Task Overview
+		step([$class: 'JUnitResultArchiver', testResults: '**/target/surfire-reports/TEST-*.xml'])
       }
     }
 
