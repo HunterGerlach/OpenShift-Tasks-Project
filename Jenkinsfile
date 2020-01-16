@@ -55,7 +55,10 @@ pipeline {
       steps {
         echo "Running Unit Tests"
 		sh "${mvnCmd} test"
-
+		sh "${pwd}"
+		sh "${ls}
+		sh "${ls /tmp/workspace/Tasks}"
+		
 		// Display the results of the unit test in Jenkins Task Overview
 		step([$class: 'JUnitResultArchiver', testResults: './surfire-reports/TEST-*.xml'])
       }
