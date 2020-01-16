@@ -13,7 +13,7 @@ def devTag      = "0.0-0"
 def prodTag     = "0.0"
 def destApp     = "tasks-green"
 def activeApp   = ""
-def version     = ""
+def version     = "1.1"
 
 pipeline {
   agent {
@@ -29,7 +29,7 @@ pipeline {
 
        script {
           def pom = readMavenPom file: 'pom.xml'
-          def version = pom.version
+          version = pom.version
 
 		  // Set the tag for the development image: version + build number
 		  devTag  = "${version}-" + currentBuild.number
