@@ -181,6 +181,7 @@ pipeline {
 
           echo "Deleting tasks"
           status = sh(returnStdout: true, script: "curl -sw '%{response_code}' -o /dev/null -u 'tasks:redhat1' -X DELETE http://tasks.${prefix}-tasks-dev.svc.cluster.local:8080/ws/tasks/1").trim()
+          echo "Status: " + status
           if (status != "204") {
             error 'Integration Create Test Failed!'
           }
