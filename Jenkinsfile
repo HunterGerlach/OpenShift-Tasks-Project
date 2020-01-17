@@ -272,9 +272,9 @@ pipeline {
               def route = openshift.selector("route/tasks").object()
               route.spec.to.name="${destApp}"
               openshift.apply(route)
+            }
           }
         }
       }
     }
-  }
 }
