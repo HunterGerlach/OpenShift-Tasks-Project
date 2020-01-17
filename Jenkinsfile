@@ -261,12 +261,19 @@ pipeline {
 
     stage('Switch over to new Version') {
       steps {
-        // TBD: Stop for approval
-
+        // Stop for approval
+        input "Switch to Production?"
 
         echo "Executing production switch"
-        // TBD: After approval execute the switch
-
+        // After approval execute the switch
+        script {
+          openshift.withCluster() {
+            openshift.withProject("${prodProject}") {
+              def route = openshift.selector("route/tasks").object()
+              route.spec.to.name="${destApp}"
+              openshift.apply(route)
+          }
+        }
       }
     }
   }
